@@ -2,11 +2,11 @@ from queue import PriorityQueue
 
 
 def heuristic(state, goal):
-    return sum(1 for s, g in zip(state, goal) if s == g)
+    return sum(1 for (s, g) in zip(state, goal) if s == g)
 
 
 def get_next_states(state):
-    colors = ['bela', 'žuta', 'crvena', 'zelena', 'plava']
+    colors = ['W', 'Y', 'R', 'G', 'B']
     next_states = []
     for i in range(len(state)):
         for color in colors:
@@ -23,6 +23,7 @@ def best_first_search(initial_state, goal_state):
     """sa minusom je zbog priority queue-a, on uzima najmanji broj"""
     visited = set()
     passed = 0
+
     while not priority_queue.empty():
         _, current_state, path = priority_queue.get()
         passed += 1
@@ -40,16 +41,15 @@ def best_first_search(initial_state, goal_state):
     return None
 
 """pocetno stanje"""
-initial_state = ['zelena', 'žuta', 'crvena', 'zelena']
+initial_state = ['G', 'Y', 'R', 'G']
 """ciljno stanje"""
-goal_state = ['plava', 'plava', 'plava', 'plava']
+goal_state = ['Y', 'Y', 'B', 'R']
 
 path = best_first_search(initial_state, goal_state)
 
-# Ispis rešenja
 if path:
     print("Put do cilja:")
     for step in path:
         print(step)
 else:
-    print("Rešenje nije pronađeno.")
+    print(":(")
